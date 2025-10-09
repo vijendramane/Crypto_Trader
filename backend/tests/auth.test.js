@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../src/server');
 const { User } = require('../src/models');
-const JWTUtil = require('../src/utils/jwt');
+const JWTUtil = require('../src/utils/jwt'); 
 
 // Test database setup
 beforeAll(async () => {
