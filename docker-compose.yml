@@ -1,0 +1,180 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  database:
+    image: postgres:15-alpine
+    container_name: primetrade_db
+    environment:
+      POSTGRES_DB: primetrade_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - primetrade_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d primetrade_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: primetrade_redis
+    command: redis-server --appendonly yes --requirepass redis_password
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - primetrade_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: primetrade_backend
+    environment:
+      - NODE_ENV=development
+      - PORT=5000
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_NAME=primetrade_dev
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=redis_password
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - JWT_REFRESH_SECRET=your-refresh-token-secret-key
+      - JWT_EXPIRES_IN=1h
+      - JWT_REFRESH_EXPIRES_IN=7d
+      - BCRYPT_SALT_ROUNDS=12
+      - RATE_LIMIT_WINDOW_MS=900000
+      - RATE_LIMIT_MAX_REQUESTS=100
+      - ENABLE_REDIS_CACHING=true
+      - LOG_LEVEL=info
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - backend_logs:/app/logs
+    ports:
+      - "5000:5000"
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - primetrade_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Frontend React App
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: primetrade_frontend
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000/api/v1
+      - REACT_APP_ENV=development
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/dist
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - primetrade_network
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+  # Nginx Load Balancer (Optional for production)
+  nginx:
+    image: nginx:alpine
+    container_name: primetrade_nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - primetrade_network
+    restart: unless-stopped
+    profiles:
+      - production
+
+  # pgAdmin for Database Management
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: primetrade_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@primetrade.ai
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
+    networks:
+      - primetrade_network
+    profiles:
+      - tools
+
+  # Redis Commander for Redis Management
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: primetrade_redis_commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379:0:redis_password
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+    networks:
+      - primetrade_network
+    profiles:
+      - tools
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  backend_logs:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  primetrade_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

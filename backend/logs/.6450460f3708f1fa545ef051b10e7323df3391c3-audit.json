@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\vijen\\Desktop\\primetarde.ai\\backend\\logs\\.6450460f3708f1fa545ef051b10e7323df3391c3-audit.json",
+    "files": [
+        {
+            "date": 1760035732134,
+            "name": "C:\\Users\\vijen\\Desktop\\primetarde.ai\\backend\\logs\\rejections-2025-10-10.log",
+            "hash": "1c05904eb40fb71f93cd7d749d5c5099fc26fe5b6f5f6e9e15b0d424d9599ec8"
+        }
+    ],
+    "hashType": "sha256"
+}

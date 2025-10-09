@@ -1,0 +1,75 @@
+{
+  message: '🚀 Server running on port 5000',
+  level: 'info',
+  timestamp: '2025-10-10 00:18:52'
+}
+{
+  message: '📖 API Documentation: http://localhost:5000/api/docs',
+  level: 'info',
+  timestamp: '2025-10-10 00:18:52'
+}
+{
+  message: '🏥 Health Check: http://localhost:5000/health',
+  level: 'info',
+  timestamp: '2025-10-10 00:18:52'
+}
+{
+  level: 'error',
+  message: 'Failed to initialize server: logger.error is not a function',
+  stack: 'TypeError: logger.error is not a function\n' +
+    '    at testConnection (C:\\Users\\vijen\\Desktop\\primetarde.ai\\backend\\src\\config\\database.js:86:12)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async initializeServer (C:\\Users\\vijen\\Desktop\\primetarde.ai\\backend\\src\\server.js:390:5)\n' +
+    '    at async Server.<anonymous> (C:\\Users\\vijen\\Desktop\\primetarde.ai\\backend\\src\\server.js:417:3)',
+  timestamp: '2025-10-10 00:18:52'
+}
+{
+  message: '🚀 Server running on port 5000',
+  level: 'info',
+  timestamp: '2025-10-10 00:42:48'
+}
+{
+  message: '📖 API Documentation: http://localhost:5000/api/docs',
+  level: 'info',
+  timestamp: '2025-10-10 00:42:48'
+}
+{
+  message: '🏥 Health Check: http://localhost:5000/health',
+  level: 'info',
+  timestamp: '2025-10-10 00:42:48'
+}
+{
+  level: 'error',
+  message: 'Failed to initialize server: logger.error is not a function',
+  stack: 'TypeError: logger.error is not a function\n' +
+    '    at testConnection (C:\\Users\\vijen\\Desktop\\primetarde.ai\\backend\\src\\config\\database.js:86:12)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async initializeServer (C:\\Users\\vijen\\Desktop\\primetarde.ai\\backend\\src\\server.js:390:5)\n' +
+    '    at async Server.<anonymous> (C:\\Users\\vijen\\Desktop\\primetarde.ai\\backend\\src\\server.js:417:3)',
+  timestamp: '2025-10-10 00:42:48'
+}
+{
+  message: '🚀 Server running on port 5000',
+  level: 'info',
+  timestamp: '2025-10-10 00:54:33'
+}
+{
+  message: '📖 API Documentation: http://localhost:5000/api/docs',
+  level: 'info',
+  timestamp: '2025-10-10 00:54:33'
+}
+{
+  message: '🏥 Health Check: http://localhost:5000/health',
+  level: 'info',
+  timestamp: '2025-10-10 00:54:33'
+}
+{
+  level: 'error',
+  message: 'Failed to initialize server: logger.error is not a function',
+  stack: 'TypeError: logger.error is not a function\n' +
+    '    at testConnection (C:\\Users\\vijen\\Desktop\\primetarde.ai\\backend\\src\\config\\database.js:86:12)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async initializeServer (C:\\Users\\vijen\\Desktop\\primetarde.ai\\backend\\src\\server.js:390:5)\n' +
+    '    at async Server.<anonymous> (C:\\Users\\vijen\\Desktop\\primetarde.ai\\backend\\src\\server.js:417:3)',
+  timestamp: '2025-10-10 00:54:33'
+}

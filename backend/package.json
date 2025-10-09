@@ -1,0 +1,64 @@
+{
+  "name": "primetrade-api",
+  "version": "1.0.0",
+  "description": "PrimeTrade.ai Backend API for Trading Strategies Management",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "migrate": "sequelize-cli db:migrate",
+    "migrate:undo": "sequelize-cli db:migrate:undo",
+    "seed": "sequelize-cli db:seed:all",
+    "seed:undo": "sequelize-cli db:seed:undo:all"
+  },
+  "keywords": ["crypto", "trading", "api", "express", "nodejs"],
+  "author": "PrimeTrade.ai",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "express-validator": "^7.0.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "sequelize": "^6.35.2",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "redis": "^4.6.10",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^4.7.1",
+    "helmet": "^7.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "nodemailer": "^6.9.7",
+    "uuid": "^9.0.1",
+    "joi": "^17.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3",
+    "sequelize-cli": "^6.6.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/config/**",
+      "!src/migrations/**",
+      "!src/seeders/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
+      }
+    }
+  }
+}
