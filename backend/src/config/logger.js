@@ -8,7 +8,7 @@ const logFormat = winston.format.combine(
   winston.format.errors({ stack: true }),
   winston.format.json(),
   winston.format.prettyPrint()
-);
+); 
 
 // Define console format for development
 const consoleFormat = winston.format.combine(
