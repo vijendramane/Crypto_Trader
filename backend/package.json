@@ -4,7 +4,7 @@
   "description": "PrimeTrade.ai Backend API for Trading Strategies Management",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node src/server.js",  
     "dev": "nodemon src/server.js",
     "test": "jest",
     "test:watch": "jest --watch",
