@@ -13,7 +13,7 @@ beforeAll(async () => {
   await require('../src/models').syncDatabase({ force: true });
 });
 
-afterAll(async () => {
+afterAll(async () => { 
   // Clean up
   await require('../src/config/database').sequelize.close();
 });
