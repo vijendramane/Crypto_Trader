@@ -5,7 +5,7 @@ const JWTUtil = require('../src/utils/jwt');
 
 // Test database setup
 beforeAll(async () => { 
-  // Use test database
+  // Use test database 
   process.env.NODE_ENV = 'test';
   process.env.DB_NAME = 'primetrade_test';
   
