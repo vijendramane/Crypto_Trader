@@ -7,7 +7,7 @@ class User extends Model {
   async comparePassword(candidatePassword) { 
     return await bcrypt.compare(candidatePassword, this.password); 
   }
- 
+  
   // Instance method to convert user to JSON (exclude sensitive data)
   toJSON() {
     const values = Object.assign({}, this.get());
