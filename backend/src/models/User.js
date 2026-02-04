@@ -1,7 +1,7 @@
 const { DataTypes, Model } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const { sequelize } = require('../config/database');
-
+ 
 class User extends Model {
   // Instance method to check password
   async comparePassword(candidatePassword) {
