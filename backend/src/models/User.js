@@ -4,7 +4,7 @@ const { sequelize } = require('../config/database');
  
 class User extends Model {
   // Instance method to check password
-  async comparePassword(candidatePassword) {
+  async comparePassword(candidatePassword) { 
     return await bcrypt.compare(candidatePassword, this.password); 
   }
  
